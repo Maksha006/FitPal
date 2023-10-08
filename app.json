@@ -8,6 +8,20 @@
       "expo-router"
     ],
     "name": "FitPal",
-    "slug": "FitPal"
+    "slug": "FitPal",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "6403f313-92d3-4747-966d-29b7631e2370"
+      }
+    },
+    "android": {
+      "package": "com.lilsha06.FitPal"
+    },
+    "ios": {
+      "bundleIdentifier": "com.lilsha06.FitPal"
+    }
   }
 }
