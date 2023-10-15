@@ -1,31 +1,30 @@
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View } from "react-native";
 import { Link, Redirect, Stack } from "expo-router";
+import { useFonts } from "expo-font";
 import registerNNPushToken from "native-notify";
+import { registerForPushNotificationsAsync } from './notifications';
 
 export default function Page() {
   registerNNPushToken(13181, 'xfqy7wBj8mN1C2yDdETKdL');
+  useEffect(() => {
+    registerForPushNotificationsAsync(); // Demande des autorisations de notification au lancement de l'application
+  }, []);
   
+  //const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
+
+  const [fontsLoaded, error] = useFonts({
+    "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
+    "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
+    "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
+    "Inter-Regular": require("./assets/fonts/Inter-Regular.ttf"),
+    "Inter-Bold": require("./assets/fonts/Inter-Bold.ttf"),
+  });
+
+  if (!fontsLoaded && !error) {
+    return null;
+  }
+
   return <Redirect href={'/home'}/>
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    padding: 24,
-  },
-  main: {
-    flex: 1,
-    justifyContent: "center",
-    maxWidth: 960,
-    marginHorizontal: "auto",
-  },
-  title: {
-    fontSize: 64,
-    fontWeight: "bold",
-  },
-  subtitle: {
-    fontSize: 36,
-    color: "#38434D",
-  },
-});

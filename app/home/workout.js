@@ -5,8 +5,7 @@ import WaterIntakeCalculator from '../waterIntakeCalculator';
 const workout = () => {
   return (
     <View>
-      <Text>workout</Text>
-      {/* <WaterIntakeCalculator/> */}
+  
     </View>
   )
 }

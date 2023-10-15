@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {useNavigation } from "expo-router";
-import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native'; // Ajoutez Button depuis 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Button, ScrollView } from 'react-native'; // Ajoutez Button depuis 'react-native'
 
 const WaterScreen = ({ objectif }) => {
   const navigation = useNavigation();
@@ -21,34 +21,35 @@ const WaterScreen = ({ objectif }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Drink Water</Text>
-      <Text>
-         <Text style={styles.subHeading}>Goal:</Text> {cups}
-      </Text>
- {/* Affichez l'objectif ici */}
-      <Button title="Calculate Water Intake" onPress={navigateToCalculator} />
-      <View style={styles.cup}>
-        <View style={styles.remained}>
-          <Text style={styles.liters}>{remainedLiters.toFixed(2)}L</Text>
-          <Text style={styles.small}>Remained</Text>
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Drink Water</Text>
+        <Text>
+          <Text style={styles.subHeading}>Goal:</Text> {cups}
+        </Text>
+        <Button title="Calculate Water Intake" onPress={navigateToCalculator} />
+        <View style={styles.cup}>
+          <View style={styles.remained}>
+            <Text style={styles.liters}>{remainedLiters.toFixed(2)}L</Text>
+            <Text style={styles.small}>Remained</Text>
+          </View>
+          <View style={[styles.percentage, { height: `${(fullCups / totalCups) * 100}%` }]}>
+            <Text>{`${(fullCups / totalCups) * 100}%`}</Text>
+          </View>
         </View>
-        <View style={[styles.percentage, { height: `${(fullCups / totalCups) * 100}%` }]}>
-          <Text>{`${(fullCups / totalCups) * 100}%`}</Text>
+        <Text style={styles.text}>Select how many glasses of water that you have drank</Text>
+        <View style={styles.cups}>
+          {cups.map((cup, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[styles.cupSmall, cup && styles.cupSmallFull]}
+              onPress={() => handleCupClick(index)}>
+              <Text>{cup ? '250 ml' : ''}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
-      <Text style={styles.text}>Select how many glasses of water that you have drank</Text>
-      <View style={styles.cups}>
-        {cups.map((cup, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[styles.cupSmall, cup && styles.cupSmallFull]}
-            onPress={() => handleCupClick(index)}>
-            <Text>{cup ? '250 ml' : ''}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 

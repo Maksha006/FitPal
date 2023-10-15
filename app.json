@@ -9,6 +9,9 @@
     ],
     "name": "FitPal",
     "slug": "FitPal",
+    "permissions": [
+      "NOTIFICATIONS"
+    ],
     "extra": {
       "router": {
         "origin": false

@@ -13,7 +13,8 @@ export default()=>{
                     <FontAwesome name="dashboard" size={24} color={color}/>),
                     headerRight: () => (
                         <MaterialCommunityIcons onPress={()=> router.push('shaya')} name="face-woman-profile" size={24} color="black"/>
-                    )
+                    ),
+                    headerShown: false
                 }} />
             
             <Tabs.Screen name="water" 
@@ -29,8 +30,8 @@ export default()=>{
                 tabBarIcon: ({color}) => (
                     <Ionicons name="fitness" size={24} color={color}/>)
                 }} />
-        </Tabs>
 
+        </Tabs>
          
     )
 }
