@@ -9,277 +9,149 @@ export default function Page() {
   
   //const router = useRouter();
 
+  const currentDate = new Date();
+
+  // Obtenez le jour de la semaine
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const dayOfWeek = dayNames[currentDate.getDay()];
+  
+  // Formattez la date
+  const day = currentDate.getDate();
+  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  const month = monthNames[currentDate.getMonth()]; 
+
   return (
-    <View style={styles.iphoneSe1}>
-      <View style={[styles.targetrectangle, styles.frame1Position]}>
-        <Image
-          style={[styles.dotOneIcon, styles.iconLayout1]}
-          contentFit="cover"
-          source={require("../assets/dot-one.png")}
-        />
-        <View style={styles.frame}>
-          <Text style={[styles.todayTarget, styles.todayTargetFlexBox]}>
-            Today target
-          </Text>
-          <Image
-            style={[styles.dotThreeIcon, styles.dotIconLayout]}
-            contentFit="cover"
-            source={require("../assets/dot-one.png")}
-          />
-          <Image
-            style={[styles.dotTwoIcon, styles.dotIconLayout]}
-            contentFit="cover"
-            source={require("../assets/dot-one.png")}
-          />
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.date}>
+        {`${dayOfWeek}, ${day} ${month}`} 
+          <Image source={require("../assets/weather.png")} style={styles.sunIcon} />
+        </Text>
+        <Image source={require("../assets/profilecircle.png")} style={styles.icon} />
+      </View>
+
+      <Text style={styles.greeting}>Hi, your name</Text>
+
+      <View style={styles.targetContainer}>
+        <Text style={styles.todayTarget}>Today target</Text>
+        <View style={styles.dots}>
+          <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+          <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+          <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
         </View>
       </View>
-      <Image
-        style={[styles.task3Icon, styles.iconLayout]}
-        contentFit="cover"
-        source={require("../assets/task-3.png")}
-      />
-      <Image
-        style={styles.task2Icon}
-        contentFit="cover"
-        source={require("../assets/task-2.png")}
-      />
-      <Image
-        style={[styles.task1Icon, styles.iconLayout]}
-        contentFit="cover"
-        source={require("../assets/task-1.png")}
-      />
-      <Pressable style={styles.waterintake}>
-        <Text style={[styles.waterintake1, styles.waterintake1Typo]}>
-          Water intake
-        </Text>
-        <View style={[styles.waterintakeChild, styles.waterintakePosition]} />
-        <View style={[styles.waterintakeItem, styles.waterintakePosition]} />
-        <Text style={[styles.waterintake2, styles.waterintakeTypo]}>
-          4 Liters
-        </Text>
-      </Pressable>
-      <Text style={[styles.todayTarget1, styles.waterintake1Typo]}>
-        Activity status
-      </Text>
-      <View style={[styles.frame1, styles.frame1Position]}>
-        <Text style={[styles.hiYour, styles.hiYourPosition]}>
-          Hi , your name
-        </Text>
-        <Text style={[styles.hiYour, styles.hiYourPosition]}>
-          Hi , your name
-        </Text>
-        <Text style={[styles.sat14Oct, styles.hiYourPosition]}>{`Sat 14 OCT
-`}</Text>
-        <Image
-          style={styles.profilecircleIcon}
-          contentFit="cover"
-          source={require("../assets/profilecircle.png")}
-        />
-        <Image
-          style={[styles.weatherIcon, styles.iconLayout1]}
-          contentFit="cover"
-          source={require("../assets/weather.png")}
-        />
+       
+      <View style={styles.tasks}>
+        <Image source={require("../assets/task-1.png")} style={styles.taskIcon} />
+        <Image source={require("../assets/task-2.png")} style={styles.taskIcon} />
+        <Image source={require("../assets/task-3.png")} style={styles.taskIcon} />
       </View>
+
+      <View style={styles.activityStatus}>
+        <Text>Activity status</Text>
+        <View style={styles.waterIntakeContainer}>
+          <View style={styles.waterIntake}>
+            {/* Vous pouvez ajouter la barre de progression ici */}
+          </View>
+          <Text>4 Liters</Text>
+        </View>
+      </View>
+
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  frame1Position: {
-    width: 272,
-    left: 24,
-    position: "absolute",
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: 'white',
   },
-  iconLayout1: {
-    maxHeight: "100%",
-    maxWidth: "100%",
-    position: "absolute",
-    overflow: "hidden",
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 5,
   },
-  todayTargetFlexBox: {
-    textAlign: "left",
-    position: "absolute",
+  date: {
+    fontSize: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop:20,
   },
-  dotIconLayout: {
-    bottom: "31.43%",
-    top: "47.62%",
-    width: "1.89%",
-    height: "20.95%",
-    maxHeight: "100%",
-    maxWidth: "100%",
-    position: "absolute",
-    overflow: "hidden",
+  sunIcon: {
+    width: 24,
+    height: 24,
+    marginLeft: 5,
   },
-  iconLayout: {
-    height: 18,
-    width: 267,
-    left: 24,
-    position: "absolute",
+  icon: {
+    width: 50,
+    height: 50,
+    marginTop:20,
   },
-  waterintake1Typo: {
-    fontFamily: FontFamily.poppinsBold,
-    fontWeight: "700",
-    textAlign: "left",
-    color: Color.colorBlack,
-    position: "absolute",
+  greeting: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
-  waterintakePosition: {
-    width: 23,
-    left: 15,
-    position: "absolute",
-  },
-  waterintakeTypo: {
-    fontSize: FontSize.size_3xs,
-    left: 45,
-  },
-  hiYourPosition: {
-    color: Color.colorGray,
-    textAlign: "left",
-    left: 0,
-    height: 21,
-    position: "absolute",
-  },
-  dotOneIcon: {
-    height: "12.94%",
-    width: "1.62%",
-    top: "50%",
-    right: "5.37%",
-    bottom: "37.06%",
-    left: "93.01%",
+  targetContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop:35,
+    marginBottom: 20,
   },
   todayTarget: {
-    fontSize: 14,
-    fontFamily: FontFamily.poppinsRegular,
-    color: Color.colorBlack,
-    left: 0,
-    textAlign: "left",
-    top: 0,
+    fontSize: 20,
   },
-  dotThreeIcon: {
-    right: "6%",
-    left: "92.12%",
+  dots: {
+    flexDirection: 'row',
   },
-  dotTwoIcon: {
-    right: "0%",
-    left: "98.11%",
-  },
-  frame: {
-    top: 7,
-    left: 10,
-    width: 233,
-    height: 21,
-    position: "absolute",
-    overflow: "hidden",
-  },
-  targetrectangle: {
-    top: 118,
-    backgroundColor: "rgba(236, 180, 94, 0.4)",
-    height: 34,
-    borderRadius: Border.br_base,
+  dotIcon: {
+    width: 10,
+    height: 10,
+    marginLeft: 5,
   },
   task3Icon: {
+    height: 18,
+    width: 267,
+    position: "absolute",
     top: 209,
   },
   task2Icon: {
-    top: 254,
     height: 19,
     width: 267,
-    left: 24,
     position: "absolute",
+    top: 254,
   },
   task1Icon: {
+    height: 18,
+    width: 267,
+    position: "absolute",
     top: 166,
-    borderRadius: Border.br_base,
   },
-  waterintake1: {
-    fontSize: FontSize.size_3xs,
-    left: 45,
-    top: 9,
+  tasks: {
+    marginTop: 10,
+    marginBottom: 20,
   },
-  waterintakeChild: {
-    borderRadius: 14,
-    backgroundColor: "#f3f3f3",
-    height: 158,
-    top: 9,
+  taskIcon: {
+    width: '100%',
+    height: 23,  // Ajustez selon la taille de vos images
+    marginBottom: 10,
   },
-  waterintakeItem: {
-    top: 92,
-    borderBottomRightRadius: Border.br_3xs,
-    borderBottomLeftRadius: Border.br_3xs,
-    backgroundColor: "#53c7f0",
-    height: 75,
+  activityStatus: {
+    marginTop: 20,
   },
-  waterintake2: {
-    top: 31,
-    fontWeight: "500",
-    fontFamily: FontFamily.poppinsMedium,
-    color: "#5893d4",
-    textAlign: "left",
-    position: "absolute",
+  waterIntakeContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
   },
-  waterintake: {
-    top: 332,
-    borderRadius: 20,
-    backgroundColor: "#fff",
-    shadowColor: "rgba(0, 0, 0, 0.1)",
-    shadowOffset: {
-      width: 0,
-      height: 20,
-    },
-    shadowRadius: 50,
-    elevation: 50,
-    shadowOpacity: 1,
-    width: 122,
-    height: 182,
-    left: 24,
-    position: "absolute",
-  },
-  todayTarget1: {
-    top: 300,
-    fontSize: 12,
-    left: 24,
-  },
-  hiYour: {
-    top: 38,
-    fontSize: FontSize.yourName_size,
-    fontFamily: FontFamily.yourName,
-    width: 159,
-    fontWeight: "700",
-    color: Color.colorGray,
-  },
-  sat14Oct: {
-    top: 17,
-    fontSize: 13,
-    fontFamily: FontFamily.interRegular,
-    width: 131,
-  },
-  profilecircleIcon: {
-    left: 214,
-    width: 58,
-    height: 57,
-    top: 0,
-    position: "absolute",
-  },
-  weatherIcon: {
-    height: "28.81%",
-    width: "5.51%",
-    top: "28.81%",
-    right: "68.01%",
-    bottom: "42.37%",
-    left: "26.47%",
-  },
-  frame1: {
-    top: 24,
-    height: 59,
-    overflow: "hidden",
-  },
-  iphoneSe1: {
-    borderRadius: 40,
-    backgroundColor: "#f6f6f6",
+  waterIntake: {
     flex: 1,
-    width: "100%",
-    height: 568,
-    overflow: "hidden",
+    height: 20,
+    backgroundColor: '#E0E0E0',
+    marginRight: 10,
   },
 });

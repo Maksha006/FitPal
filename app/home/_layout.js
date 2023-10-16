@@ -28,7 +28,8 @@ export default()=>{
                 <Tabs.Screen name="workout" 
             options={{
                 tabBarIcon: ({color}) => (
-                    <Ionicons name="fitness" size={24} color={color}/>)
+                    <Ionicons name="fitness" size={24} color={color}/>),
+                    headerShown: false
                 }} />
 
         </Tabs>
