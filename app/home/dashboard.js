@@ -1,13 +1,17 @@
 import * as React from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
+import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import { Image } from "expo-image";
-import { Link, Redirect, Stack,Tabs, useRouter } from "expo-router";
+import { useRouter, useGlobalSearchParams } from "expo-router";
+import WaterReminderCard from "../waterReminderCard";
 import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
+
 export default function Page() {
   
-  //const router = useRouter();
+  const router = useRouter();
+
+  const { name, username} = useGlobalSearchParams();
 
   const currentDate = new Date();
 
@@ -21,43 +25,41 @@ export default function Page() {
   const month = monthNames[currentDate.getMonth()]; 
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.date}>
-        {`${dayOfWeek}, ${day} ${month}`} 
-          <Image source={require("../assets/weather.png")} style={styles.sunIcon} />
-        </Text>
-        <Image source={require("../assets/profilecircle.png")} style={styles.icon} />
-      </View>
-
-      <Text style={styles.greeting}>Hi, your name</Text>
-
-      <View style={styles.targetContainer}>
-        <Text style={styles.todayTarget}>Today target</Text>
-        <View style={styles.dots}>
-          <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
-          <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
-          <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
-        </View>
-      </View>
-       
-      <View style={styles.tasks}>
-        <Image source={require("../assets/task-1.png")} style={styles.taskIcon} />
-        <Image source={require("../assets/task-2.png")} style={styles.taskIcon} />
-        <Image source={require("../assets/task-3.png")} style={styles.taskIcon} />
-      </View>
-
-      <View style={styles.activityStatus}>
-        <Text>Activity status</Text>
-        <View style={styles.waterIntakeContainer}>
-          <View style={styles.waterIntake}>
-            {/* Vous pouvez ajouter la barre de progression ici */}
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.dateContainer}>
+            <Text style={styles.date}>{`${dayOfWeek}, ${day} ${month}`}</Text>
+            <Image source={require("../assets/weather.png")} style={styles.sunIcon} />
           </View>
-          <Text>4 Liters</Text>
+          <Pressable onPress={() => router.push('/shaya')}>
+            <Image source={require("../assets/profilecircle.png")} style={styles.icon} />
+          </Pressable>
         </View>
-      </View>
 
-    </View>
+        <Text style={styles.greeting}>Hi, your name</Text>
+
+        <View style={styles.targetContainer}>
+          <Text style={styles.todayTarget}>Today target</Text>
+          <View style={styles.dots}>
+            <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+            <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+            <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+          </View>
+        </View>
+        
+        <View style={styles.tasks}>
+          <Image source={require("../assets/task-1.png")} style={styles.taskIcon} />
+          <Image source={require("../assets/task-2.png")} style={styles.taskIcon} />
+          <Image source={require("../assets/task-3.png")} style={styles.taskIcon} />
+        </View>
+
+        <View style={styles.activityStatus}>
+          <WaterReminderCard/>
+        </View>
+
+      </View>
+    </ScrollView>
   );
 };
 
@@ -72,6 +74,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 5,
+  },
+  dateContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   date: {
     fontSize: 16,
