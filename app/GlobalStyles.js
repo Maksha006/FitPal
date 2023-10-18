@@ -5,6 +5,7 @@ export const FontFamily = {
   poppinsBold: "Poppins-Bold",
   poppinsMedium: "Poppins-Medium",
   poppinsRegular: "Poppins-Regular",
+  QualyBold: "Qualy-Bold",
 };
 /* font sizes */
 export const FontSize = {

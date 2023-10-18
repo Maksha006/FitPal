@@ -19,12 +19,13 @@ export default function Page() {
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
     "Inter-Regular": require("./assets/fonts/Inter-Regular.ttf"),
     "Inter-Bold": require("./assets/fonts/Inter-Bold.ttf"),
+    "Qualy-Bold": require("./assets/fonts/Qualy-Bold.ttf"),
   });
 
   if (!fontsLoaded && !error) {
     return null;
   }
 
-  return <Redirect href={'/home'}/>
+  return (<Redirect href={'Welcome'}/>)
 }
 

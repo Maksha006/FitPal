@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {useNavigation } from "expo-router";
-import { View, Text, TouchableOpacity, StyleSheet, Button, ScrollView } from 'react-native'; // Ajoutez Button depuis 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Button, ScrollView, Image } from 'react-native'; // Ajoutez Button depuis 'react-native'
 
 const WaterScreen = ({ objectif }) => {
   const navigation = useNavigation();
@@ -21,111 +21,77 @@ const WaterScreen = ({ objectif }) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.background}>
       <View style={styles.container}>
-        <Text style={styles.heading}>Drink Water</Text>
-        <Text>
-          <Text style={styles.subHeading}>Goal:</Text> {cups}
-        </Text>
-        <Button title="Calculate Water Intake" onPress={navigateToCalculator} />
-        <View style={styles.cup}>
-          <View style={styles.remained}>
-            <Text style={styles.liters}>{remainedLiters.toFixed(2)}L</Text>
-            <Text style={styles.small}>Remained</Text>
-          </View>
-          <View style={[styles.percentage, { height: `${(fullCups / totalCups) * 100}%` }]}>
-            <Text>{`${(fullCups / totalCups) * 100}%`}</Text>
-          </View>
-        </View>
-        <Text style={styles.text}>Select how many glasses of water that you have drank</Text>
+        <Image source={require('../assets/waterDrop.png')} style={styles.waterDrop} />
+        <Text style={styles.goalText}>1000ML 25%</Text>
         <View style={styles.cups}>
           {cups.map((cup, index) => (
             <TouchableOpacity
               key={index}
               style={[styles.cupSmall, cup && styles.cupSmallFull]}
               onPress={() => handleCupClick(index)}>
-              <Text>{cup ? '250 ml' : ''}</Text>
+              <Text style={cup ? styles.fullCupText : styles.emptyCupText}>{cup ? '✓' : ''}</Text>
             </TouchableOpacity>
           ))}
         </View>
+        <Text style={styles.drinkMore}>2/8 500ML Cups</Text>
+        <Text style={styles.totalGoal}>4000ML Daily Goal</Text>
       </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    backgroundColor: '#E5F5FB',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#3494e4',
     alignItems: 'center',
+    paddingTop: 50,
   },
-  heading: {
-    margin: 10,
+  waterDrop: {
+    width: 200,
+    height: 300,
+    resizeMode: 'contain',
+  },
+  goalText: {
     fontSize: 24,
-    color: '#fff',
-  },
-  subHeading: {
-    fontWeight: '400',
-    margin: 10,
-    color: '#fff',
-  },
-  text: {
-    textAlign: 'center',
-    margin: 5,
-    color: '#fff',
-  },
-  cup: {
-    backgroundColor: '#fff',
-    borderColor: '#144fc6',
-    borderWidth: 4,
-    borderRadius: 40,
-    height: 120,
-    width: 150,
-    margin: 30,
-    flexDirection: 'column',
-  },
-  cupSmall: {
-    height: 95,
-    width: 50,
-    borderRadius: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    margin: 5,
-    fontSize: 14,
-  },
-  cupSmallFull: {
-    backgroundColor: '#6ab3f8',
-    color: '#fff',
+    fontWeight: 'bold',
+    marginTop: 15,
   },
   cups: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    marginTop: 30,
+  },
+  cupSmall: {
+    width: 30,
+    height: 50,
+    margin: 5,
+    borderRadius: 5,
+    backgroundColor: '#E0E0E0',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 280,
   },
-  remained: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
+  cupSmallFull: {
+    backgroundColor: '#007AFF',
   },
-  liters: {
-    fontSize: 20,
+  fullCupText: {
+    color: 'white',
+    fontSize: 24,
+  },
+  emptyCupText: {
+    fontSize: 24,
+  },
+  drinkMore: {
+    marginTop: 15,
+    fontSize: 18,
     fontWeight: 'bold',
   },
-  small: {
-    fontSize: 12,
-  },
-  percentage: {
-    backgroundColor: '#6ab3f8',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 30,
-    fontWeight: 'bold',
+  totalGoal: {
+    marginTop: 10,
+    fontSize: 18,
   },
 });
 
