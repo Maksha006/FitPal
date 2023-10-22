@@ -6,6 +6,7 @@ export const FontFamily = {
   poppinsMedium: "Poppins-Medium",
   poppinsRegular: "Poppins-Regular",
   QualyBold: "Qualy-Bold",
+  NexaTrialLightItalic: "Nexa-Trial-LightItalic",
 };
 /* font sizes */
 export const FontSize = {

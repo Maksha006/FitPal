@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
+import { FontFamily} from "./GlobalStyles";
 import { Platform } from 'react-native';
 
 export default function SignUp() {
@@ -43,8 +44,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontSize: 43,
+        fontSize: 35,
         color: '#fff',
+        fontFamily: FontFamily.NexaTrialLightItalic
     },
     input: {
         width: '80%',

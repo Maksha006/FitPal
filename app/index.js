@@ -20,6 +20,7 @@ export default function Page() {
     "Inter-Regular": require("./assets/fonts/Inter-Regular.ttf"),
     "Inter-Bold": require("./assets/fonts/Inter-Bold.ttf"),
     "Qualy-Bold": require("./assets/fonts/Qualy-Bold.ttf"),
+    "Nexa-Trial-LightItalic": require("./assets/fonts/Nexa-Trial-LightItalic.ttf"),
   });
 
   if (!fontsLoaded && !error) {
