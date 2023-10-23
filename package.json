@@ -20,6 +20,7 @@
     "expo-router": "^2.0.9",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
+    "firebase": "^10.5.0",
     "native-notify": "^3.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -45,5 +46,17 @@
     "metro": "^0.73.7",
     "metro-resolver": "^0.73.7"
   },
-  "private": true
+  "private": true,
+  "description": "Use [`expo-router`](https://expo.github.io/router) to build native navigation using files in the `app/` directory.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maksha006/FitPal.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maksha006/FitPal/issues"
+  },
+  "homepage": "https://github.com/Maksha006/FitPal#readme"
 }
