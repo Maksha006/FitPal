@@ -3,8 +3,12 @@ import { StyleSheet, View, TextInput, TouchableOpacity, Text } from 'react-nativ
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import { FontFamily} from "./GlobalStyles";
 import { Platform } from 'react-native';
+import {useNavigation } from "expo-router";
 
 export default function SignUp() {
+
+    const navigation = useNavigation();
+
     return (
         <View style={styles.container}>
             
@@ -16,7 +20,7 @@ export default function SignUp() {
             <TextInput placeholder="Your Email" style={styles.input} />
             <TextInput placeholder="Password" style={styles.input} secureTextEntry={true} />
 
-            <TouchableOpacity style={styles.signUpButton}>
+            <TouchableOpacity onPress={() => navigation.navigate('home')} style={styles.signUpButton}>
                 <Text style={styles.signUpButtonText}>Sign Up</Text>
             </TouchableOpacity>
 

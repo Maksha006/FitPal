@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import { Image } from "expo-image";
 import { useRouter, useGlobalSearchParams } from "expo-router";
@@ -22,7 +22,33 @@ export default function Page() {
   // Formattez la date
   const day = currentDate.getDate();
   const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-  const month = monthNames[currentDate.getMonth()]; 
+  const month = monthNames[currentDate.getMonth()];
+  
+  const [objectifs, setObjectifs] = React.useState([]);
+
+  const genererObjectifs = () => {
+    // Exemple d'objectifs générés aléatoirement
+    const listeObjectifs = [
+        "Faire 3 série de 20 pompes",
+        "Faire 3 série de 15 squats",
+        // ... ajoutez autant d'objectifs que vous voulez
+    ];
+
+    const objectifsDuJour = []; // contiendra les objectifs du jour
+
+    // Génère 3 ou 4 objectifs aléatoirement
+    for (let i = 0; i < 4; i++) {
+        const indexAleatoire = Math.floor(Math.random() * listeObjectifs.length);
+        objectifsDuJour.push(listeObjectifs[indexAleatoire]);
+        listeObjectifs.splice(indexAleatoire, 1); // pour éviter de choisir le même objectif deux fois
+    }
+
+    setObjectifs(objectifsDuJour);
+  }
+
+  React.useEffect(() => {
+    genererObjectifs();
+  }, []);
 
   return (
     <ScrollView>
@@ -49,9 +75,12 @@ export default function Page() {
         </View>
         
         <View style={styles.tasks}>
-          <Image source={require("../assets/task-1.png")} style={styles.taskIcon} />
-          <Image source={require("../assets/task-2.png")} style={styles.taskIcon} />
-          <Image source={require("../assets/task-3.png")} style={styles.taskIcon} />
+        {objectifs.map((objectif, index) => (
+        <View key={index} style={styles.task}>
+            <Text>{objectif}</Text>
+            {/* Vous pouvez ajouter des icônes ou d'autres éléments ici */}
+        </View>
+          ))}
         </View>
 
         <View style={styles.activityStatus}>
