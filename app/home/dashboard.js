@@ -3,52 +3,46 @@ import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import { Image } from "expo-image";
 import { useRouter, useGlobalSearchParams } from "expo-router";
 import WaterReminderCard from "../waterReminderCard";
-import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
-import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
+import { db, ref, onValue, off } from '../../FirebaseConfig';
+
+// import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
+// import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 export default function Page() {
-  
+
   const router = useRouter();
 
-  const { name, username} = useGlobalSearchParams();
+  const { name, username } = useGlobalSearchParams();
 
   const currentDate = new Date();
 
   // Obtenez le jour de la semaine
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const dayOfWeek = dayNames[currentDate.getDay()];
-  
+
   // Formattez la date
   const day = currentDate.getDate();
   const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
   const month = monthNames[currentDate.getMonth()];
-  
+
   const [objectifs, setObjectifs] = React.useState([]);
 
-  const genererObjectifs = () => {
-    // Exemple d'objectifs générés aléatoirement
-    const listeObjectifs = [
-        "Faire 3 série de 20 pompes",
-        "Faire 3 série de 15 squats",
-        // ... ajoutez autant d'objectifs que vous voulez
-    ];
 
-    const objectifsDuJour = []; // contiendra les objectifs du jour
-
-    // Génère 3 ou 4 objectifs aléatoirement
-    for (let i = 0; i < 4; i++) {
-        const indexAleatoire = Math.floor(Math.random() * listeObjectifs.length);
-        objectifsDuJour.push(listeObjectifs[indexAleatoire]);
-        listeObjectifs.splice(indexAleatoire, 1); // pour éviter de choisir le même objectif deux fois
+useEffect(() => {
+  const objectifsRef = ref(db, 'objectifs');
+  const detachListener = onValue(objectifsRef, snapshot => {
+    const fetchedObjectifs = snapshot.val();
+    if (fetchedObjectifs) {
+      const objectifsListe = fetchedObjectifs.map(item => item.description);
+      setObjectifs(objectifsListe.slice(0, 4)); // Ne prendre que les 4 premiers objectifs
     }
+  });
 
-    setObjectifs(objectifsDuJour);
-  }
-
-  React.useEffect(() => {
-    genererObjectifs();
-  }, []);
+  return () => {
+    detachListener(); // Cette fonction détachera l'écouteur
+  };
+}, []);
 
   return (
     <ScrollView>
@@ -63,7 +57,7 @@ export default function Page() {
           </Pressable>
         </View>
 
-        <Text style={styles.greeting}>Hi, your name</Text>
+        <Text style={styles.greeting}>{`Hi, ${name}`}</Text>
 
         <View style={styles.targetContainer}>
           <Text style={styles.todayTarget}>Today target</Text>
@@ -73,18 +67,18 @@ export default function Page() {
             <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
           </View>
         </View>
-        
-        <View style={styles.tasks}>
+
+        <View style={styles.tasksContainer}>
         {objectifs.map((objectif, index) => (
-        <View key={index} style={styles.task}>
-            <Text>{objectif}</Text>
-            {/* Vous pouvez ajouter des icônes ou d'autres éléments ici */}
-        </View>
+          <View key={index} style={styles.task}>
+            
+            <Text style={styles.taskText}>{objectif}</Text>
+            </View>
           ))}
         </View>
 
         <View style={styles.activityStatus}>
-          <WaterReminderCard/>
+          <WaterReminderCard />
         </View>
 
       </View>
@@ -112,7 +106,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop:20,
+    marginTop: 20,
   },
   sunIcon: {
     width: 24,
@@ -122,7 +116,7 @@ const styles = StyleSheet.create({
   icon: {
     width: 50,
     height: 50,
-    marginTop:20,
+    marginTop: 20,
   },
   greeting: {
     fontSize: 22,
@@ -133,7 +127,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop:35,
+    marginTop: 35,
     marginBottom: 20,
   },
   todayTarget: {
@@ -147,32 +141,34 @@ const styles = StyleSheet.create({
     height: 10,
     marginLeft: 5,
   },
-  task3Icon: {
-    height: 18,
-    width: 267,
-    position: "absolute",
-    top: 209,
-  },
-  task2Icon: {
-    height: 19,
-    width: 267,
-    position: "absolute",
-    top: 254,
-  },
-  task1Icon: {
-    height: 18,
-    width: 267,
-    position: "absolute",
-    top: 166,
-  },
-  tasks: {
+  tasksContainer: {
     marginTop: 10,
     marginBottom: 20,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#F7F7F7',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
+  },
+  task: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    marginBottom: 5,
+    borderRadius: 5,
+    backgroundColor: 'white',
   },
   taskIcon: {
-    width: '100%',
-    height: 23,  // Ajustez selon la taille de vos images
-    marginBottom: 10,
+    marginRight: 10,
+  },
+  taskText: {
+    fontSize: 16,
   },
   activityStatus: {
     marginTop: 20,
