@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import { Image } from "expo-image";
 import { useRouter, useGlobalSearchParams } from "expo-router";
 import WaterReminderCard from "../waterReminderCard";
-import { db, ref, onValue, off } from '../../FirebaseConfig';
+import { fBdb, ref, onValue} from '../../FirebaseConfig';
 
 // import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
 // import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -14,6 +14,8 @@ export default function Page() {
   const router = useRouter();
 
   const { name, username } = useGlobalSearchParams();
+
+  const taskIcons = ['📚', '🎨', '💰', '⛰'];
 
   const currentDate = new Date();
 
@@ -27,22 +29,34 @@ export default function Page() {
   const month = monthNames[currentDate.getMonth()];
 
   const [objectifs, setObjectifs] = React.useState([]);
+  const [objectiveStatus, setObjectiveStatus] = React.useState('red'); // Default is 'red' for not completed.
 
 
-useEffect(() => {
-  const objectifsRef = ref(db, 'objectifs');
-  const detachListener = onValue(objectifsRef, snapshot => {
-    const fetchedObjectifs = snapshot.val();
-    if (fetchedObjectifs) {
-      const objectifsListe = fetchedObjectifs.map(item => item.description);
-      setObjectifs(objectifsListe.slice(0, 4)); // Ne prendre que les 4 premiers objectifs
-    }
-  });
+  useEffect(() => {
 
-  return () => {
-    detachListener(); // Cette fonction détachera l'écouteur
-  };
-}, []);
+    // updateObjectivesWithCompletedField();
+
+    const objectifsRef = ref(fBdb, 'objectifs');
+    const detachListener = onValue(objectifsRef, snapshot => {
+      const fetchedObjectifs = snapshot.val();
+      if (fetchedObjectifs) {
+        const objectifsListe = fetchedObjectifs.map(item => item.description);
+        setObjectifs(objectifsListe.slice(0, 4));// Ne prendre que les 4 premiers objectifs
+
+        let completed = 0;
+        fetchedObjectifs.forEach(objectif => {
+          if (objectif.completed) completed++;
+        });
+        if (completed === fetchedObjectifs.length) setObjectiveStatus('green');
+        else if (completed > 0) setObjectiveStatus('orange');
+        else setObjectiveStatus('red');
+      }
+    });
+
+    return () => {
+      detachListener(); // Cette fonction détachera l'écouteur
+    };
+  }, []);
 
   return (
     <ScrollView>
@@ -61,6 +75,7 @@ useEffect(() => {
 
         <View style={styles.targetContainer}>
           <Text style={styles.todayTarget}>Today target</Text>
+          <View style={{ ...styles.statusIndicator, backgroundColor: objectiveStatus }}></View>
           <View style={styles.dots}>
             <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
             <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
@@ -69,14 +84,13 @@ useEffect(() => {
         </View>
 
         <View style={styles.tasksContainer}>
-        {objectifs.map((objectif, index) => (
-          <View key={index} style={styles.task}>
-            
-            <Text style={styles.taskText}>{objectif}</Text>
+          {objectifs.map((objectif, index) => (
+            <View key={index} style={styles.task}>
+              <Text style={styles.taskIcon}>{taskIcons[index]}</Text>
+              <Text style={styles.taskText}>{objectif}</Text>
             </View>
           ))}
         </View>
-
         <View style={styles.activityStatus}>
           <WaterReminderCard />
         </View>
@@ -166,10 +180,17 @@ const styles = StyleSheet.create({
   },
   taskIcon: {
     marginRight: 10,
+    fontSize: 20,
   },
   taskText: {
     fontSize: 16,
   },
+  statusIndicator: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginRight: 10
+},
   activityStatus: {
     marginTop: 20,
   },
