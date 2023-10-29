@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import { Image } from "expo-image";
+import Checkbox from 'expo-checkbox';
 import { useRouter, useGlobalSearchParams } from "expo-router";
 import WaterReminderCard from "../waterReminderCard";
-import { fBdb, ref, onValue} from '../../FirebaseConfig';
+import { fBdb, ref, onValue, update } from '../../FirebaseConfig';
 
 // import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
 // import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -31,6 +32,17 @@ export default function Page() {
   const [objectifs, setObjectifs] = React.useState([]);
   const [objectiveStatus, setObjectiveStatus] = React.useState('red'); // Default is 'red' for not completed.
 
+  const handleCheckBoxChange = (index, newValue) => {
+    console.log(`Checkbox at index ${index} updated to ${newValue}`);
+    let updatedObjectifs = [...objectifs];
+    updatedObjectifs[index].completed = newValue;
+
+    setObjectifs(updatedObjectifs);
+
+    // Mettez à jour Firebase
+    const objectifRef = ref(fBdb, `objectifs/${index}`);
+    update(objectifRef, { completed: newValue });
+  };
 
   useEffect(() => {
 
@@ -47,7 +59,7 @@ export default function Page() {
         fetchedObjectifs.forEach(objectif => {
           if (objectif.completed) completed++;
         });
-        if (completed === fetchedObjectifs.length) setObjectiveStatus('green');
+        if (completed === 4) setObjectiveStatus('green');
         else if (completed > 0) setObjectiveStatus('orange');
         else setObjectiveStatus('red');
       }
@@ -86,8 +98,12 @@ export default function Page() {
         <View style={styles.tasksContainer}>
           {objectifs.map((objectif, index) => (
             <View key={index} style={styles.task}>
-              <Text style={styles.taskIcon}>{taskIcons[index]}</Text>
+              <Checkbox
+                value={objectif.completed}
+                onValueChange={(newValue) => handleCheckBoxChange(index, newValue)}
+              />
               <Text style={styles.taskText}>{objectif}</Text>
+              <Text style={styles.taskIcon}>{taskIcons[index]}</Text>
             </View>
           ))}
         </View>
@@ -171,7 +187,8 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   task: {
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
+    justifyContent: 'space-between',
     alignItems: 'center',
     padding: 10,
     marginBottom: 5,
@@ -190,7 +207,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     marginRight: 10
-},
+  },
   activityStatus: {
     marginTop: 20,
   },
