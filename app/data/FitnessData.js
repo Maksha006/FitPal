@@ -15,30 +15,24 @@ export default [
         },
         {
             id:"11",
-            image:"https://177d01fbswx3jjl1t20gdr8j-wpengine.netdna-ssl.com/wp-content/uploads/2019/06/Incline-Push-Up.gif",
-            name:"INCLINE PUSH-UPS",
-            sets:10,
-        },
-        {
-            id:"12",
             image:"https://media.self.com/photos/583c641ca8746f6e65a60c7e/master/w_1600%2Cc_limit/DIAMOND_PUSHUP_MOTIFIED.gif",
             name:"INCLINED PUSH-UPS",
             sets:10,
         },
         {
-            id:"13",
+            id:"12",
             image:"https://cdn.prod.openfit.com/uploads/2020/03/10162714/wide-arm-push-up.gif",
             name:"WIDE ARM PUSH-UPS",
             sets:12,
         },
         {
-            id:"14",
+            id:"13",
             image:"https://www.yogajournal.com/wp-content/uploads/2021/12/Cobra.gif?width=730",
             name:"COBRA STRETCH",
             sets:10,
         },
         {
-            id:"15",
+            id:"14",
             image:"https://www.vissco.com/wp-content/uploads/animation/sub/double-knee-to-chest-stretch.gif",
             name:"CHEST STRETCH",
             sets:10,
@@ -99,37 +93,25 @@ export default [
         },
         {
           id:"71",
-          image:"https://thumbs.gfycat.com/CompleteZigzagFossa-max-1mb.gif",
-          name:"TRICEP DIPS",
-          sets:10,
-        },
-        {
-          id:"72",
           image:"https://thumbs.gfycat.com/MisguidedAridAlaskanmalamute-max-1mb.gif",
           name:"DIAMOND_PUSHUP",
           sets:10,
         },
         {
-          id:"73",
+          id:"72",
           image:"https://c.tenor.com/gI-8qCUEko8AAAAC/pushup.gif",
           name:"PUSH-UPS",
           sets:10,
         },
         {
-          id:"74",
+          id:"73",
           image:"https://i.pinimg.com/originals/8c/53/27/8c532774e4e1c524576bf1fb829ad895.gif",
           name:"DUMBELL CURL",
           sets:11,
         
         },
         {
-          id:"75",
-          image:"https://www.vissco.com/wp-content/uploads/animation/sub/inch-worm.gif",
-          name:"INCH WORMS",
-          sets:5,
-        },
-        {
-          id:"76",
+          id:"74",
           image:"https://c.tenor.com/jqwaOmRs-7gAAAAC/tricep-kick-back-tricep.gif",
           name:"TRICEP LIFT",
           sets:8,
@@ -151,30 +133,18 @@ export default [
         },
         {
           id:"21",
-          image:"https://image.2bstronger.com/article/fitness/the-14-toughest-do-anywhere-workout-moves-56348/1006.gif",
-          name:"HINDU PUSH-UPS",
-          sets:10,
-        },
-        {
-          id:"22",
           image:"https://thumbs.gfycat.com/TheseRigidBorer-size_restricted.gif",
           name:"SHOULDER STRETCH",
           sets:5,
         },
         {
-          id:"23",
-          image:"https://thumbs.gfycat.com/AlertAfraidAldabratortoise-max-1mb.gif",
-          name:"COBRA STRETCH",
-          sets:4,
-        },
-        {
-          id:"25",
+          id:"22",
           image:"https://media4.popsugar-assets.com/files/thumbor/BaWEAcCjtJEjiwf3PqJHnZ_S23A/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2016/08/10/766/n/1922729/1eae2dcf3d395379_PushUpTwist.gif",
           name:"PUSH-UP & ROTATION",
           sets:12,
         },
         {
-          id:"26",
+          id:"23",
           image:"https://media3.popsugar-assets.com/files/thumbor/0Xiqpo7pxrKz5CKcRl7XYrKegko/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2014/02/27/847/n/1922729/1baf9ec0f5ce4ea9_burpee.3.gif",
           name:"BURPEES",
           sets:10

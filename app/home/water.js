@@ -1,54 +1,72 @@
 import React, { useState } from 'react';
-import {useNavigation } from "expo-router";
-import { View, Text, TouchableOpacity, StyleSheet, Button, ScrollView } from 'react-native'; // Ajoutez Button depuis 'react-native'
+import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import { sex as dataSex, weight as dataWeight, age as dataAge } from '../profileData';
 
-const WaterScreen = ({ objectif }) => {
-  const navigation = useNavigation();
-  const [cups, setCups] = useState(Array(8).fill(false)); // State to track cup status
-  const handleCupClick = (index) => {
-    const newCups = [...cups];
-    newCups[index] = !newCups[index];
-    setCups(newCups);
-  };
+const BMIScreen = () => {
+  const [selectedSex, setSelectedSex] = useState('');
+  const [selectedWeight, setSelectedWeight] = useState(0);
+  const [selectedAge, setSelectedAge] = useState(0);
+  //const [bmi, setBmi] = useState(null);
+  const [waterIntake, setWaterIntake] = useState(null);
 
-  const fullCups = cups.filter((cup) => cup).length;
-  const totalCups = cups.length;
-  const remainedLiters = ((totalCups - fullCups) * 250) / 1000;
+  const calculateWaterIntake = () => {
 
-  // Ajoutez cette fonction pour naviguer vers la page WaterIntakeCalculator
-  const navigateToCalculator = () => {
-    navigation.navigate('waterIntakeCalculator');
+    if (selectedAge >= 4 && selectedAge <= 8) {
+      setWaterIntake(1.6);
+    } else if (selectedAge >= 9 && selectedAge <= 13) {
+      if (selectedSex === 'Female') {
+        setWaterIntake(1.9);
+      } else if (selectedSex === 'Male') {
+        setWaterIntake(2.1);
+      }
+    } else if (selectedAge >= 14 && selectedAge <= 18) {
+      if (selectedSex === 'Female') {
+        setWaterIntake(2);
+      } else if (selectedSex === 'Male') {
+        setWaterIntake(2.5);
+      }
+    } else {  // Adulte
+      const calculatedWaterIntake = ((selectedWeight - 20) * 15) + 1500;
+      setWaterIntake(calculatedWaterIntake / 1000); // Divisé par 1000 pour convertir millilitres en litres
+    }
   };
 
   return (
     <ScrollView>
-      <View style={styles.container}>
-        <Text style={styles.heading}>Drink Water</Text>
-        <Text>
-          <Text style={styles.subHeading}>Goal:</Text> {cups}
-        </Text>
-        <Button title="Calculate Water Intake" onPress={navigateToCalculator} />
-        <View style={styles.cup}>
-          <View style={styles.remained}>
-            <Text style={styles.liters}>{remainedLiters.toFixed(2)}L</Text>
-            <Text style={styles.small}>Remained</Text>
-          </View>
-          <View style={[styles.percentage, { height: `${(fullCups / totalCups) * 100}%` }]}>
-            <Text>{`${(fullCups / totalCups) * 100}%`}</Text>
-          </View>
+        <View style={styles.container}>
+
+          <Text>Set Sex</Text>
+          <Picker
+            selectedValue={selectedSex}
+            onValueChange={(itemValue) => setSelectedSex(itemValue)}>
+            {dataSex.map((item, index) => (
+              <Picker.Item key={index} label={item} value={item} />
+            ))}
+          </Picker>
+
+          <Text>Set Weight</Text>
+          <Picker
+            selectedValue={selectedWeight}
+            onValueChange={(itemValue) => setSelectedWeight(itemValue)}>
+            {dataWeight.map((item, index) => (
+              <Picker.Item key={index} label={item} value={item} />
+            ))}
+          </Picker>
+
+          <Text>Set Age</Text>
+          <Picker
+            selectedValue={selectedAge}
+            onValueChange={(itemValue) => setSelectedAge(itemValue)}>
+            {dataAge.map((item, index) => (
+              <Picker.Item key={index} label={item} value={item} />
+            ))}
+          </Picker>
+
+          <Button title="Calculer l'apport en eau" onPress={() => calculateWaterIntake()} />
+          {waterIntake && <Text>Votre apport recommandé en eau est {waterIntake}L par jour</Text>}
         </View>
-        <Text style={styles.text}>Select how many glasses of water that you have drank</Text>
-        <View style={styles.cups}>
-          {cups.map((cup, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[styles.cupSmall, cup && styles.cupSmallFull]}
-              onPress={() => handleCupClick(index)}>
-              <Text>{cup ? '250 ml' : ''}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      </View>
+
     </ScrollView>
   );
 };
@@ -56,77 +74,8 @@ const WaterScreen = ({ objectif }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#3494e4',
-    alignItems: 'center',
-  },
-  heading: {
-    margin: 10,
-    fontSize: 24,
-    color: '#fff',
-  },
-  subHeading: {
-    fontWeight: '400',
-    margin: 10,
-    color: '#fff',
-  },
-  text: {
-    textAlign: 'center',
-    margin: 5,
-    color: '#fff',
-  },
-  cup: {
-    backgroundColor: '#fff',
-    borderColor: '#144fc6',
-    borderWidth: 4,
-    borderRadius: 40,
-    height: 120,
-    width: 150,
-    margin: 30,
-    flexDirection: 'column',
-  },
-  cupSmall: {
-    height: 95,
-    width: 50,
-    borderRadius: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    margin: 5,
-    fontSize: 14,
-  },
-  cupSmallFull: {
-    backgroundColor: '#6ab3f8',
-    color: '#fff',
-  },
-  cups: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 280,
-  },
-  remained: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-  },
-  liters: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  small: {
-    fontSize: 12,
-  },
-  percentage: {
-    backgroundColor: '#6ab3f8',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 30,
-    fontWeight: 'bold',
+    padding: 10,
   },
 });
 
-export default WaterScreen;
+export default BMIScreen;

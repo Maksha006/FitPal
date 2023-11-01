@@ -1,11 +1,11 @@
-import { View, Text, ScrollView, Image } from 'react-native'
-import React from 'react'
-import WaterIntakeCalculator from '../waterIntakeCalculator';
+import { View, Text, ScrollView} from 'react-native'
+import { Image } from "expo-image";
+import FitnessCards from '../FitnessCards';
 
 const workout = () => {
   return (
-    <ScrollView>
-      <View style={{ backgroundColor: "#CD853F", padding: 10, height: 200, width: "100%" }}>
+    <ScrollView style={{marginTop:40}}>
+      <View>
         <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>HOME WORKOUT</Text>
 
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20 }}>
@@ -35,6 +35,7 @@ const workout = () => {
             }}
           />
         </View>
+        <FitnessCards/>
       </View>
     </ScrollView>
   )
