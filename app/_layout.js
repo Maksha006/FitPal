@@ -6,9 +6,7 @@ export default () => {
 
     return <Stack screenOptions={{
         headerTintColor: 'red',
-        headerRight: () => (
-            <AntDesign name="questioncircle" size={24} color="black" />
-        )}}>
+       }}>
 
         <Stack.Screen  name="index" options={{
             title: 'Home' }}/>
@@ -16,6 +14,7 @@ export default () => {
         <Stack.Screen name="home" options={{ headerShown: false}} />
         <Stack.Screen name="Welcome" options={{ headerShown: false}} />
         <Stack.Screen name="SignUp" options={{ headerShown: false}} />
+        <Stack.Screen name="WorkoutSerie" options={{ headerShown: false}} />
     </Stack>
 
     /*

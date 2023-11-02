@@ -2,15 +2,22 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { Image } from "expo-image";
 import fitness from './data/FitnessData';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from "expo-router";
 
 const FitnessCards = () => {
 
   const FitnessData = fitness;
+  const navigation = useNavigation();
 
   return (
     <View>
       {FitnessData.map((item, key) => (
-        <Pressable style={styles.CardPress} key={key}>
+        <Pressable onPress={() => navigation.navigate('WorkoutSerie', {
+          image: item.image,
+          exersises: item.excersises,
+          id: item.id,
+        })} 
+        style={styles.CardPress} key={key}>
           <Image style={styles.ImageFitness} source={{ uri: item.image }} />
           <Text style={styles.CardText}>{item.name}</Text>
           <MaterialCommunityIcons style={{
