@@ -4,17 +4,14 @@ import { AntDesign } from '@expo/vector-icons';
 export default () => {
     const router = useRouter(); // ça sert a nous rediriger vers la page qu'on a créer
 
-    return <Stack screenOptions={{
-        headerTintColor: 'red',
-       }}>
-
-        <Stack.Screen  name="index" options={{
-            title: 'Home' }}/>
+    return <Stack>
 
         <Stack.Screen name="home" options={{ headerShown: false}} />
         <Stack.Screen name="Welcome" options={{ headerShown: false}} />
         <Stack.Screen name="SignUp" options={{ headerShown: false}} />
         <Stack.Screen name="WorkoutSerie" options={{ headerShown: false}} />
+        <Stack.Screen name="FitExercices" options={{ headerShown: false}} />
+
     </Stack>
 
     /*
