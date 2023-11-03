@@ -11,6 +11,7 @@ export default () => {
         <Stack.Screen name="SignUp" options={{ headerShown: false}} />
         <Stack.Screen name="WorkoutSerie" options={{ headerShown: false}} />
         <Stack.Screen name="FitExercices" options={{ headerShown: false}} />
+        <Stack.Screen name="Break" options={{ headerShown: false}} />
 
     </Stack>
 
