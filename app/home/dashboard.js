@@ -16,7 +16,7 @@ export default function Page() {
 
   const { name, username } = useGlobalSearchParams();
 
-  const taskIcons = ['📚', '🎨', '💰', '⛰'];
+  //const taskIcons = ['📚', '🎨', '💰', '⛰'];
 
   const currentDate = new Date();
 
@@ -52,7 +52,7 @@ export default function Page() {
     const detachListener = onValue(objectifsRef, snapshot => {
       const fetchedObjectifs = snapshot.val();
       if (fetchedObjectifs) {
-        const objectifsListe = fetchedObjectifs.map(item => item.description);
+        const objectifsListe = fetchedObjectifs.map(item => ({ description: item.description, completed: item.completed }));
         setObjectifs(objectifsListe.slice(0, 4));// Ne prendre que les 4 premiers objectifs
 
         let completed = 0;
@@ -102,11 +102,12 @@ export default function Page() {
                 value={objectif.completed}
                 onValueChange={(newValue) => handleCheckBoxChange(index, newValue)}
               />
-              <Text style={styles.taskText}>{objectif}</Text>
-              <Text style={styles.taskIcon}>{taskIcons[index]}</Text>
+              <Text style={styles.taskText}>{objectif.description}</Text>
+              {/* <Text style={styles.taskIcon}>{taskIcons[index]}</Text> */}
             </View>
           ))}
         </View>
+
         <View style={styles.activityStatus}>
           <WaterReminderCard />
         </View>
