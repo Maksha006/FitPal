@@ -19,8 +19,6 @@ export default function Page() {
 
   const { name, username } = useGlobalSearchParams();
 
-  //const taskIcons = ['📚', '🎨', '💰', '⛰'];
-
   const currentDate = new Date();
 
   // Obtenez le jour de la semaine
@@ -50,9 +48,20 @@ export default function Page() {
 
     setObjectifs(updatedObjectifs);
 
-    // Mettez à jour Firebase
+    let completed = updatedObjectifs.filter(obj => obj.completed).length;
+    let newStatus = completed === 4 ? 'green' : completed > 0 ? 'orange' : 'red';
+
+    // Update the status
+    setObjectiveStatus(newStatus);
+
     const objectifRef = ref(fBdb, `objectifs/${index}`);
     update(objectifRef, { completed: newValue });
+
+    const formattedDate = formatDateToCalendar(new Date());
+    setMarkedDates({
+      ...markedDates,
+      [formattedDate]: { selected: true, marked: true, selectedColor: newStatus }
+    });
   };
 
   const [markedDates, setMarkedDates] = useState({
@@ -77,13 +86,19 @@ export default function Page() {
         if (completed === 4) setObjectiveStatus('green');
         else if (completed > 0) setObjectiveStatus('orange');
         else setObjectiveStatus('red');
+
+        const formattedDate = formatDateToCalendar(new Date());
+        setMarkedDates({
+          ...markedDates,
+          [formattedDate]: { selected: true, marked: true, selectedColor: objectiveStatus }
+        });
       }
     });
 
     return () => {
       detachListener(); // Cette fonction détachera l'écouteur
     };
-  }, []);
+  }, [objectiveStatus]);
 
   return (
     <ScrollView>
@@ -114,14 +129,14 @@ export default function Page() {
             onDayPress={(day) => {
               console.log("Selected date", day.dateString);
               const today = new Date().toISOString().split('T')[0];
-              const newMarkedDates = {...markedDates};
-              
+              const newMarkedDates = { ...markedDates };
+
               if (day.dateString == today) {
                 newMarkedDates[day.dateString] = { selected: true, selectedColor: 'blue' };
               } else {
                 if (newMarkedDates[day.dateString]) {
                   delete newMarkedDates[day.dateString];
-                }else{
+                } else {
                   newMarkedDates[day.dateString] = { selected: true, selectedColor: 'blue' };
                 }
               }
