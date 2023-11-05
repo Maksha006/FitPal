@@ -32,6 +32,14 @@ export default function Page() {
   const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
   const month = monthNames[currentDate.getMonth()];
 
+  const formatDateToCalendar = (date) => {
+    const day = `0${date.getDate()}`.slice(-2); // Ajoute un zéro au besoin et prend les deux derniers chiffres
+    const month = `0${date.getMonth() + 1}`.slice(-2); // Ajoute un zéro au besoin et prend les deux derniers chiffres
+    const year = date.getFullYear();
+
+    return `${year}-${month}-${day}`;
+  };
+
   const [objectifs, setObjectifs] = React.useState([]);
   const [objectiveStatus, setObjectiveStatus] = React.useState('red'); // Default is 'red' for not completed.
 
@@ -47,7 +55,9 @@ export default function Page() {
     update(objectifRef, { completed: newValue });
   };
 
-  const [markedDates, setMarkedDates] = useState({});
+  const [markedDates, setMarkedDates] = useState({
+    [formatDateToCalendar(new Date())]: { selected: true, marked: true, selectedColor: 'blue' }
+  });
 
   useEffect(() => {
 
@@ -88,7 +98,7 @@ export default function Page() {
           </Pressable>
         </View>
 
-        <Text style={styles.greeting}>{`Hi, ${name}`}</Text>
+        <Text style={styles.greeting}>{`Good  Evening`}</Text>
 
         <View style={styles.targetContainer}>
           <Text style={styles.todayTarget}>Today target</Text>
@@ -102,8 +112,20 @@ export default function Page() {
           </Pressable>
           <PickerModal setModalOpen={setModalVisible} modalOpen={modalVisible} markedDates={markedDates}
             onDayPress={(day) => {
-              console.log("Selected date", day);
-              // Mettre à jour les dates marquées ici ou toute autre logique nécessaire
+              console.log("Selected date", day.dateString);
+              const today = new Date().toISOString().split('T')[0];
+              const newMarkedDates = {...markedDates};
+              
+              if (day.dateString == today) {
+                newMarkedDates[day.dateString] = { selected: true, selectedColor: 'blue' };
+              } else {
+                if (newMarkedDates[day.dateString]) {
+                  delete newMarkedDates[day.dateString];
+                }else{
+                  newMarkedDates[day.dateString] = { selected: true, selectedColor: 'blue' };
+                }
+              }
+              setMarkedDates(newMarkedDates);
             }} />
         </View>
 
@@ -115,7 +137,6 @@ export default function Page() {
                 onValueChange={(newValue) => handleCheckBoxChange(index, newValue)}
               />
               <Text style={styles.taskText}>{objectif.description}</Text>
-              {/* <Text style={styles.taskIcon}>{taskIcons[index]}</Text> */}
             </View>
           ))}
         </View>

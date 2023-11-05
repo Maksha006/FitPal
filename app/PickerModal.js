@@ -16,7 +16,7 @@ const PickerModal = ({ modalOpen, setModalOpen, markedDates, onDayPress }) => {
       }}>
 
       <View style={styles.container}>
-        <View style={styles.pickerContainer}>
+        <View style={styles.modalContainer}>
           <TouchableOpacity
             style={styles.closeButton}
             onPress={() => setModalOpen(!modalOpen)}>
@@ -62,10 +62,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  pickerContainer: {
+  modalContainer: {
     backgroundColor: 'white',
     width: '100%',
-    height: '40%',
+    height: '60%',
     position: 'absolute',
     bottom: 0,
   },
