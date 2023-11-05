@@ -5,12 +5,15 @@ import Checkbox from 'expo-checkbox';
 import { useRouter, useGlobalSearchParams } from "expo-router";
 import WaterReminderCard from "../waterReminderCard";
 import { fBdb, ref, onValue, update } from '../../FirebaseConfig';
+import PickerModal from '../PickerModal';
 
 // import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
 // import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 export default function Page() {
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   const router = useRouter();
 
@@ -43,6 +46,8 @@ export default function Page() {
     const objectifRef = ref(fBdb, `objectifs/${index}`);
     update(objectifRef, { completed: newValue });
   };
+
+  const [markedDates, setMarkedDates] = useState({});
 
   useEffect(() => {
 
@@ -88,11 +93,18 @@ export default function Page() {
         <View style={styles.targetContainer}>
           <Text style={styles.todayTarget}>Today target</Text>
           <View style={{ ...styles.statusIndicator, backgroundColor: objectiveStatus }}></View>
-          <View style={styles.dots}>
-            <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
-            <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
-            <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
-          </View>
+          <Pressable onPress={() => setModalVisible(!modalVisible)}>
+            <View style={styles.dots}>
+              <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+              <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+              <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+            </View>
+          </Pressable>
+          <PickerModal setModalOpen={setModalVisible} modalOpen={modalVisible} markedDates={markedDates}
+            onDayPress={(day) => {
+              console.log("Selected date", day);
+              // Mettre à jour les dates marquées ici ou toute autre logique nécessaire
+            }} />
         </View>
 
         <View style={styles.tasksContainer}>
