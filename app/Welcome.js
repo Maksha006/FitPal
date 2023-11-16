@@ -21,7 +21,7 @@ const Welcome = () => {
             <Text style={styles.description}>Find your way to perfect balance</Text>
 
             {/* Get Started Button */}
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')} style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('home')} style={styles.button}>
                 <Text  style={styles.buttonText}>Get Started</Text>
             </TouchableOpacity>
 

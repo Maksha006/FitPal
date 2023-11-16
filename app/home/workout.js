@@ -1,8 +1,13 @@
-import { View, Text, ScrollView} from 'react-native'
+import { View, Text, ScrollView} from 'react-native';
 import { Image } from "expo-image";
 import FitnessCards from '../FitnessCards';
+import {FitnessItems} from '../../Context';
+import { useContext } from "react";
 
 const workout = () => {
+
+  const { completed, setCompleted, workout, setWorkout, calories, setCalories, minutes, setMinutes } = useContext(FitnessItems)
+
   return (
     <ScrollView style={{marginTop:40}}>
       <View>
@@ -10,15 +15,15 @@ const workout = () => {
 
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20 }}>
           <View>
-            <Text style={{ color: "white", fontWeight: "bold", textAlign: "center", fontSize: 18 }}>0</Text>
+            <Text style={{ color: "white", fontWeight: "bold", textAlign: "center", fontSize: 18 }}>{workout}</Text>
             <Text style={{ color: "#D0D0D0", textAlign: "center", fontSize: 18, marginTop: 6 }}>WORKOUTS</Text>
           </View>
           <View>
-            <Text style={{ color: "white", fontWeight: "bold", textAlign: "center", fontSize: 18 }}>0</Text>
+            <Text style={{ color: "white", fontWeight: "bold", textAlign: "center", fontSize: 18 }}>{calories}</Text>
             <Text style={{ color: "#D0D0D0", textAlign: "center", fontSize: 18, marginTop: 6 }}>KCAL</Text>
           </View>
           <View>
-            <Text style={{ color: "white", fontWeight: "bold", textAlign: "center", fontSize: 18 }}>0</Text>
+            <Text style={{ color: "white", fontWeight: "bold", textAlign: "center", fontSize: 18 }}>{minutes}</Text>
             <Text style={{ color: "#D0D0D0", textAlign: "center", fontSize: 18, marginTop: 6 }}>MINS</Text>
           </View>
         </View>

@@ -1,7 +1,9 @@
 import { StyleSheet, Text, ScrollView, View, Image, Pressable, Button } from 'react-native'
 import { useRoute } from '@react-navigation/native'
-import React, { useState } from 'react'
-import { useNavigation } from 'expo-router';
+import React, { useState, useContext } from 'react'
+import { useNavigation } from 'expo-router'
+import { FitnessItems } from '../Context'
+import { set } from 'date-fns'
 
 const FitExercices = () => {
     const route = useRoute();
@@ -11,7 +13,16 @@ const FitExercices = () => {
     const [index, setIndex] = useState(route.params.id);
     const excersises = route.params.exersises;
     const current = excersises[index];
-    console.log(current, "first excercises")
+    //console.log(current, "first excercises")
+    const { completed, setCompleted, workout, setWorkout, calories, setCalories, minutes, setMinutes } = useContext(FitnessItems)
+    console.log(completed, "complete exercice")
+
+    const exercicesDone = () => {
+        setCompleted([...completed, current.name])
+        setWorkout(workout + 1)
+        setMinutes(minutes + 2.5)
+        setCalories(calories + 6.3)
+    }
 
     return (
         <ScrollView style={{ marginTop: 35, backgroundColor: "white" }}>
@@ -19,7 +30,11 @@ const FitExercices = () => {
             <Text style={styles.textFit}>{current.name}</Text>
             <Text style={styles.textFit}>x{current.sets}</Text>
 
-            <Pressable onPress={() => navigation.goBack()} style={styles.pressableDone}>
+            <Pressable onPress={() => {
+                navigation.goBack(),
+                    exercicesDone()
+            }}
+                style={styles.pressableDone}>
                 <Text style={styles.textDone}>DONE</Text>
             </Pressable>
 
@@ -32,22 +47,23 @@ const FitExercices = () => {
             ) : (
                 <Pressable onPress={() => {
                     navigation.navigate('Break')
+                    exercicesDone()
                     setTimeout(() => {
                         setIndex(index + 1)
                     }, 2000)
                 }}>
-                    <Text>Take a break</Text>
+                    <Text>next exercice</Text>
                 </Pressable>
             )}
             <Pressable style={styles.pressableBt}>
                 <Pressable
-                disabled={index===0}
-                onPress={() => {
+                    disabled={index === 0}
+                    onPress={() => {
                         navigation.navigate('Break')
                         setTimeout(() => {
                             setIndex(index - 1)
                         }, 2000)
-                    }} 
+                    }}
                     style={styles.pressPrevSkip}>
                     <Text style={styles.prevSkipTxt}>PREV</Text>
                 </Pressable>

@@ -11,9 +11,6 @@ export default()=>{
             options={{
                 tabBarIcon: ({color}) => (
                     <FontAwesome name="dashboard" size={24} color={color}/>),
-                    headerRight: () => (
-                        <MaterialCommunityIcons onPress={()=> router.push('shaya')} name="face-woman-profile" size={24} color="black"/>
-                    ),
                     headerShown: false
                 }} />
             

@@ -25,6 +25,30 @@ export default function Page() {
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const dayOfWeek = dayNames[currentDate.getDay()];
 
+  // formule de salutation
+  const [greeting, setGreeting] = useState('');
+
+  const updateGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) {
+      return 'Good Morning';
+    } else if (hour < 18) {
+      return 'Good Afternoon';
+    } else {
+      return 'Good Evening';
+    }
+  };
+
+  useEffect(() => {
+    setGreeting(updateGreeting());
+
+    const interval = setInterval(() => {
+      setGreeting(updateGreeting());
+    }, 3600000); // Mise à jour toutes les heures
+
+    return () => clearInterval(interval);
+  }, []);
+
   // Formattez la date
   const day = currentDate.getDate();
   const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -113,7 +137,7 @@ export default function Page() {
           </Pressable>
         </View>
 
-        <Text style={styles.greeting}>{`Good  Evening`}</Text>
+        <Text style={styles.greeting}>{greeting}</Text>
 
         <View style={styles.targetContainer}>
           <Text style={styles.todayTarget}>Today target</Text>
@@ -127,18 +151,14 @@ export default function Page() {
           </Pressable>
           <PickerModal setModalOpen={setModalVisible} modalOpen={modalVisible} markedDates={markedDates}
             onDayPress={(day) => {
-              console.log("Selected date", day.dateString);
+
               const today = new Date().toISOString().split('T')[0];
               const newMarkedDates = { ...markedDates };
 
-              if (day.dateString == today) {
+              if (day.dateString === today) {
+                const newMarkedDates = { ...markedDates };
                 newMarkedDates[day.dateString] = { selected: true, selectedColor: 'blue' };
-              } else {
-                if (newMarkedDates[day.dateString]) {
-                  delete newMarkedDates[day.dateString];
-                } else {
-                  newMarkedDates[day.dateString] = { selected: true, selectedColor: 'blue' };
-                }
+                setMarkedDates(newMarkedDates);
               }
               setMarkedDates(newMarkedDates);
             }} />

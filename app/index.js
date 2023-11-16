@@ -3,13 +3,14 @@ import { Link, Redirect, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import registerNNPushToken from "native-notify";
 import { registerForPushNotificationsAsync } from './notifications';
+import FitnessContext from '../Context';
 
 export default function Page() {
   registerNNPushToken(13181, 'xfqy7wBj8mN1C2yDdETKdL');
   useEffect(() => {
     registerForPushNotificationsAsync(); // Demande des autorisations de notification au lancement de l'application
   }, []);
-  
+
   //const [hideSplashScreen, setHideSplashScreen] = React.useState(true);
 
 
@@ -27,6 +28,8 @@ export default function Page() {
     return null;
   }
 
-  return (<Redirect href={'Welcome'}/>)
+  return (
+      <Redirect href={'Welcome'} />
+    )
 }
 

@@ -2,6 +2,9 @@ import { ScrollView, StyleSheet, Text, Image, Pressable, View } from 'react-nati
 import { useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter, useNavigation } from 'expo-router';
+import { useContext } from "react";
+import {FitnessItems} from '../Context'
+import { AntDesign } from '@expo/vector-icons';
 
 const WorkoutSerie = () => {
 
@@ -9,6 +12,7 @@ const WorkoutSerie = () => {
     //console.log(route.params)
     const navigation = useRouter();
     const navigate = useNavigation();
+    const {completed, setCompleted,} = useContext(FitnessItems)
 
     return (
         <>
@@ -25,10 +29,16 @@ const WorkoutSerie = () => {
                         <Image style={{ width: 150, height: 150, marginLeft: 5 }} source={{ uri: item.image }}></Image>
 
                         <View style={{ margin: 10 }}>
-                            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{item.name}</Text>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', width: 170}}>{item.name}</Text>
 
                             <Text style={{ marginTop: 4, fontSize: 18, color: "gray" }}>x{item.sets}</Text>
                         </View>
+
+                        {completed.includes(item.name) ? (
+                            <AntDesign style={{ marginLeft: 3 }} name="checkcircle" size={24} color="green" />
+                        ):(
+                            null
+                        )}
                     </Pressable>
                 ))}
             </ScrollView>
