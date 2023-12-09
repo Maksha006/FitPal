@@ -6,6 +6,7 @@ import { useRouter, useGlobalSearchParams } from "expo-router";
 import WaterReminderCard from "../waterReminderCard";
 import { fBdb, ref, onValue, update } from '../../FirebaseConfig';
 import PickerModal from '../PickerModal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
 // import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -65,6 +66,14 @@ export default function Page() {
   const [objectifs, setObjectifs] = React.useState([]);
   const [objectiveStatus, setObjectiveStatus] = React.useState('red'); // Default is 'red' for not completed.
 
+  const saveColorToStorage = async (date, color) => {
+    try {
+      await AsyncStorage.setItem(`calendarColor-${date}`, color);
+    } catch (error) {
+      console.error('Error saving data', error);
+    }
+  };
+
   const handleCheckBoxChange = (index, newValue) => {
     console.log(`Checkbox at index ${index} updated to ${newValue}`);
     let updatedObjectifs = [...objectifs];
@@ -82,6 +91,7 @@ export default function Page() {
     update(objectifRef, { completed: newValue });
 
     const formattedDate = formatDateToCalendar(new Date());
+    saveColorToStorage(formattedDate, newStatus);
     setMarkedDates({
       ...markedDates,
       [formattedDate]: { selected: true, marked: true, selectedColor: newStatus }
@@ -93,9 +103,7 @@ export default function Page() {
   });
 
   useEffect(() => {
-
     // updateObjectivesWithCompletedField();
-
     const objectifsRef = ref(fBdb, 'objectifs');
     const detachListener = onValue(objectifsRef, snapshot => {
       const fetchedObjectifs = snapshot.val();
@@ -123,6 +131,27 @@ export default function Page() {
       detachListener(); // Cette fonction détachera l'écouteur
     };
   }, [objectiveStatus]);
+
+  useEffect(() => {
+    const loadColors = async () => {
+      let newMarkedDates = {...markedDates};
+      try {
+        // Parcourir chaque jour du mois, par exemple
+        for (let day = 1; day <= 31; day++) {
+          const date = `2023-12-${day.toString().padStart(2, '0')}`; // Remplacer par la date actuelle
+          const color = await AsyncStorage.getItem(`calendarColor-${date}`);
+          if (color) {
+            newMarkedDates[date] = { selected: true, marked: true, selectedColor: color };
+          }
+        }
+        setMarkedDates(newMarkedDates);
+      } catch (error) {
+        console.error('Error loading colors', error);
+      }
+    };
+
+    loadColors();
+  }, []);
 
   return (
     <ScrollView>
