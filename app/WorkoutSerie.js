@@ -1,10 +1,11 @@
-import { ScrollView, StyleSheet, Text, Image, Pressable, View } from 'react-native'
-import { useRoute } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter, useNavigation } from 'expo-router';
-import { useContext } from "react";
+import {ScrollView, StyleSheet, Text, Image, Pressable, View} from 'react-native'
+import {useRoute} from '@react-navigation/native';
+import {Ionicons} from '@expo/vector-icons';
+import {useRouter, useNavigation} from 'expo-router';
+import {useContext, useEffect} from "react";
 import {FitnessItems} from '../Context'
-import { AntDesign } from '@expo/vector-icons';
+import {AntDesign} from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const WorkoutSerie = () => {
 
@@ -16,36 +17,35 @@ const WorkoutSerie = () => {
 
     return (
         <>
-            <ScrollView style={{ marginTop: 20, backgroundColor: "white" }}>
-                <Image style={styles.serieImg} source={{ uri: route.params.image }} />
-                <Ionicons onPress={() => navigation.back()} style={styles.icon} name="arrow-back-outline" size={24} color="white" />
+            <ScrollView style={{marginTop: 20, backgroundColor: "white"}}>
+                <Image style={styles.serieImg} source={{uri: route.params.image}}/>
+                <Ionicons onPress={() => navigation.back()} style={styles.icon} name="arrow-back-outline" size={24}
+                          color="white"/>
 
                 {route.params.exersises.map((item, index) => (
                     <Pressable onPress={() => navigate.navigate('FitExercices', {
                         exersises: route.params.exersises,
                         id: index,
                     })}
-                        style={styles.pressableSerie} key={index}>
-                        <Image style={{ width: 150, height: 150, marginLeft: 5 }} source={{ uri: item.image }}></Image>
+                               style={styles.pressableSerie} key={index}>
+                        <Image style={{width: 150, height: 150, marginLeft: 5}} source={{uri: item.image}}></Image>
 
-                        <View style={{ margin: 10 }}>
-                            <Text style={{ fontSize: 16, fontWeight: 'bold', width: 170}}>{item.name}</Text>
+                        <View style={{margin: 10}}>
+                            <Text style={{fontSize: 16, fontWeight: 'bold', width: 170}}>{item.name}</Text>
 
-                            <Text style={{ marginTop: 4, fontSize: 18, color: "gray" }}>x{item.sets}</Text>
+                            <Text style={{marginTop: 4, fontSize: 18, color: "gray"}}>x{item.sets}</Text>
                         </View>
 
                         {completed.includes(item.name) ? (
-                            <AntDesign style={{ marginLeft: 3 }} name="checkcircle" size={24} color="green" />
-                        ):(
-                            null
-                        )}
+                            <AntDesign style={{marginLeft: 3}} name="checkcircle" size={24} color="green"/>
+                        ) : null}
                     </Pressable>
                 ))}
             </ScrollView>
-            <Pressable onPress={() => navigate.navigate('FitExercices', { exersises: route.params.exersises, id: 0 })} style={styles.pressableStart}>
+            <Pressable onPress={() => navigate.navigate('FitExercices', {exersises: route.params.exersises, id: 0})}
+                       style={styles.pressableStart}>
                 <Text style={styles.textStart}>START</Text>
             </Pressable>
-
         </>
 
     )

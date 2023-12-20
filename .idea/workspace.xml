@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87e9e074-3664-4eac-baaf-bc05176b4367" name="Changes" comment="">
+    <list default="true" id="87e9e074-3664-4eac-baaf-bc05176b4367" name="Changes" comment="update color calendar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/home/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Context.js" beforeDir="false" afterPath="$PROJECT_DIR$/Context.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/FitExercices.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/FitExercices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/WorkoutSerie.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/WorkoutSerie.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +95,20 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Maksha006&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="6a22f210-26c5-448c-b8d3-8a3e4eaf041f" />
+        <option name="url" value="https://github.com/Maksha006/FitPal" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -142,8 +156,19 @@
       <workItem from="1696355284110" duration="126000" />
       <workItem from="1696919327740" duration="87000" />
       <workItem from="1701937506398" duration="749000" />
-      <workItem from="1702123542904" duration="5378000" />
+      <workItem from="1702123542904" duration="7685000" />
+      <workItem from="1702468274333" duration="4613000" />
+      <workItem from="1703020670045" duration="11190000" />
     </task>
+    <task id="LOCAL-00001" summary="update color calendar">
+      <option name="closed" value="true" />
+      <created>1702133033164</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1702133033164</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,5 +189,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update color calendar" />
+    <option name="LAST_COMMIT_MESSAGE" value="update color calendar" />
   </component>
 </project>

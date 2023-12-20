@@ -1,9 +1,10 @@
 import { StyleSheet, Text, ScrollView, View, Image, Pressable, Button } from 'react-native'
 import { useRoute } from '@react-navigation/native'
-import React, { useState, useContext } from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import { useNavigation } from 'expo-router'
 import { FitnessItems } from '../Context'
 import { set } from 'date-fns'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const FitExercices = () => {
     const route = useRoute();
