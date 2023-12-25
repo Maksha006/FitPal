@@ -20,7 +20,28 @@ const FitnessContext = ({ children }) => {
                 console.error('Erreur lors du chargement des données :', error);
             }
         };
+
+        const loadData = async () => {
+            try {
+                const savedWorkout = await AsyncStorage.getItem('Workout');
+                const savedCalories = await AsyncStorage.getItem('Calories');
+                const savedMinutes = await AsyncStorage.getItem('Minutes');
+
+                if (savedWorkout !== null) {
+                    setWorkout(JSON.parse(savedWorkout));
+                }
+                if (savedCalories !== null) {
+                    setCalories(JSON.parse(savedCalories));
+                }
+                if (savedMinutes !== null) {
+                    setMinutes(JSON.parse(savedMinutes));
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des données :', error);
+            }
+        };
         loadCompleted();
+        loadData();
     }, []);
 
 

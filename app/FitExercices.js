@@ -20,15 +20,25 @@ const FitExercices = () => {
 
     const exercicesDone = async () => {
         const newCompleted = [...completed, current.name];
-        setCompleted(newCompleted); // Mettre à jour l'état
+        setCompleted(newCompleted);
+
+        // Enregistrement des données d'exercice
+        const newWorkout = workout + 1;
+        const newCalories = calories + 6.3;
+        const newMinutes = minutes + 2.5;
+
         try {
             await AsyncStorage.setItem('CompletedExercises', JSON.stringify(newCompleted));
+            await AsyncStorage.setItem('Workout', JSON.stringify(newWorkout));
+            await AsyncStorage.setItem('Calories', JSON.stringify(newCalories));
+            await AsyncStorage.setItem('Minutes', JSON.stringify(newMinutes));
         } catch (error) {
             console.error('Erreur lors du chargement des données :', error);
         }
-        setWorkout(workout + 1);
-        setMinutes(minutes + 2.5);
-        setCalories(calories + 6.3);
+
+        setWorkout(newWorkout);
+        setCalories(newCalories);
+        setMinutes(newMinutes);
     }
 
     return (
