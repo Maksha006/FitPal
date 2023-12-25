@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="87e9e074-3664-4eac-baaf-bc05176b4367" name="Changes" comment="update color calendar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Context.js" beforeDir="false" afterPath="$PROJECT_DIR$/Context.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/FitExercices.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/FitExercices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/WorkoutSerie.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/WorkoutSerie.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,6 +157,7 @@
       <workItem from="1702123542904" duration="7685000" />
       <workItem from="1702468274333" duration="4613000" />
       <workItem from="1703020670045" duration="11190000" />
+      <workItem from="1703525825701" duration="1588000" />
     </task>
     <task id="LOCAL-00001" summary="update color calendar">
       <option name="closed" value="true" />

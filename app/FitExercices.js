@@ -18,11 +18,17 @@ const FitExercices = () => {
     const { completed, setCompleted, workout, setWorkout, calories, setCalories, minutes, setMinutes } = useContext(FitnessItems)
     console.log(completed, "complete exercice")
 
-    const exercicesDone = () => {
-        setCompleted([...completed, current.name])
-        setWorkout(workout + 1)
-        setMinutes(minutes + 2.5)
-        setCalories(calories + 6.3)
+    const exercicesDone = async () => {
+        const newCompleted = [...completed, current.name];
+        setCompleted(newCompleted); // Mettre à jour l'état
+        try {
+            await AsyncStorage.setItem('CompletedExercises', JSON.stringify(newCompleted));
+        } catch (error) {
+            console.error('Erreur lors du chargement des données :', error);
+        }
+        setWorkout(workout + 1);
+        setMinutes(minutes + 2.5);
+        setCalories(calories + 6.3);
     }
 
     return (
