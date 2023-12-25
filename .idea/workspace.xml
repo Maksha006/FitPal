@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87e9e074-3664-4eac-baaf-bc05176b4367" name="Changes" comment="persistent data workout exercises">
+    <list default="true" id="87e9e074-3664-4eac-baaf-bc05176b4367" name="Changes" comment="persistent data workout statistic">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Context.js" beforeDir="false" afterPath="$PROJECT_DIR$/Context.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/FitExercices.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/FitExercices.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +157,7 @@
       <workItem from="1702123542904" duration="7685000" />
       <workItem from="1702468274333" duration="4613000" />
       <workItem from="1703020670045" duration="11190000" />
-      <workItem from="1703525825701" duration="5854000" />
+      <workItem from="1703525825701" duration="10787000" />
     </task>
     <task id="LOCAL-00001" summary="update color calendar">
       <option name="closed" value="true" />
@@ -176,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703527742744</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="persistent data workout statistic">
+      <option name="closed" value="true" />
+      <created>1703541696979</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1703541696979</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,6 +208,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update color calendar" />
     <MESSAGE value="persistent data workout exercises" />
-    <option name="LAST_COMMIT_MESSAGE" value="persistent data workout exercises" />
+    <MESSAGE value="persistent data workout statistic" />
+    <option name="LAST_COMMIT_MESSAGE" value="persistent data workout statistic" />
   </component>
 </project>

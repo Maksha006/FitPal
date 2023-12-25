@@ -10,6 +10,9 @@ const FitnessContext = ({ children }) => {
     const [minutes, setMinutes] = useState(0);
 
     useEffect(() => {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toLocaleDateString ('fr-FR').split('/').reverse().join('-');
+        console.log('Date actuelle:', today);
         const loadCompleted = async () => {
             try {
                 const savedCompleted = await AsyncStorage.getItem('CompletedExercises');
@@ -40,8 +43,32 @@ const FitnessContext = ({ children }) => {
                 console.error('Erreur lors du chargement des données :', error);
             }
         };
+
+        const checkDateAndReset = async () => {
+            try {
+                const lastResetDate = await AsyncStorage.getItem('LastResetDate');
+                if (lastResetDate !== today) {
+                    // Réinitialiser les données
+                    setCompleted([]);
+                    setWorkout(0);
+                    setCalories(0);
+                    setMinutes(0);
+
+                    // Enregistrer la nouvelle date de réinitialisation
+                    await AsyncStorage.setItem('LastResetDate', today);
+                    await AsyncStorage.removeItem('CompletedExercises');
+                    await AsyncStorage.removeItem('Workout');
+                    await AsyncStorage.removeItem('Calories');
+                    await AsyncStorage.removeItem('Minutes');
+                }
+            } catch (error) {
+                console.error('Erreur lors de la vérification de la date :', error);
+            }
+        };
+
         loadCompleted();
         loadData();
+        checkDateAndReset();
     }, []);
 
 
