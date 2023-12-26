@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87e9e074-3664-4eac-baaf-bc05176b4367" name="Changes" comment="persistent data workout statistic">
+    <list default="true" id="87e9e074-3664-4eac-baaf-bc05176b4367" name="Changes" comment="reset daily data workout statistic">
+      <change beforePath="$PROJECT_DIR$/%ProgramData%/Microsoft/Windows/UUS/State/_active.uusver" beforeDir="false" afterPath="$PROJECT_DIR$/%ProgramData%/Microsoft/Windows/UUS/State/_active.uusver" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Context.js" beforeDir="false" afterPath="$PROJECT_DIR$/Context.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/home/workout.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/workout.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,7 +158,7 @@
       <workItem from="1702123542904" duration="7685000" />
       <workItem from="1702468274333" duration="4613000" />
       <workItem from="1703020670045" duration="11190000" />
-      <workItem from="1703525825701" duration="10787000" />
+      <workItem from="1703525825701" duration="16390000" />
     </task>
     <task id="LOCAL-00001" summary="update color calendar">
       <option name="closed" value="true" />
@@ -183,7 +184,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703541696979</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="reset daily data workout statistic">
+      <option name="closed" value="true" />
+      <created>1703547671162</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1703547671162</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,6 +218,7 @@
     <MESSAGE value="update color calendar" />
     <MESSAGE value="persistent data workout exercises" />
     <MESSAGE value="persistent data workout statistic" />
-    <option name="LAST_COMMIT_MESSAGE" value="persistent data workout statistic" />
+    <MESSAGE value="reset daily data workout statistic" />
+    <option name="LAST_COMMIT_MESSAGE" value="reset daily data workout statistic" />
   </component>
 </project>

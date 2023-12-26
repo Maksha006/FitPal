@@ -11,20 +11,20 @@ const workout = () => {
   return (
     <ScrollView style={{marginTop:40}}>
       <View>
-        <Text style={{ color: "white", fontWeight: "bold", fontSize: 18 }}>HOME WORKOUT</Text>
+        <Text style={{ color: "#ccbcaf", fontWeight: "bold", fontSize: 25, marginTop:10, marginLeft:10, marginRight:12, marginBottom:15 }}>HOME WORKOUT</Text>
 
-        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20 }}>
+        <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginTop: 20, marginLeft:10, marginRight:12 }}>
           <View>
-            <Text style={{ color: "white", fontWeight: "bold", textAlign: "center", fontSize: 18 }}>{workout}</Text>
-            <Text style={{ color: "#D0D0D0", textAlign: "center", fontSize: 18, marginTop: 6 }}>WORKOUTS</Text>
+            <Text style={{ color: "#D0D0D0", fontWeight: "bold", textAlign: "center", fontSize: 20 }}>{workout}</Text>
+            <Text style={{ color: "#D0D0D0", textAlign: "center", fontSize: 20, marginTop: 6 }}>WORKOUTS</Text>
           </View>
           <View>
-            <Text style={{ color: "white", fontWeight: "bold", textAlign: "center", fontSize: 18 }}>{calories}</Text>
-            <Text style={{ color: "#D0D0D0", textAlign: "center", fontSize: 18, marginTop: 6 }}>KCAL</Text>
+            <Text style={{ color: "#D0D0D0", fontWeight: "bold", textAlign: "center", fontSize: 20 }}>{calories}</Text>
+            <Text style={{ color: "#D0D0D0", textAlign: "center", fontSize: 20, marginTop: 6 }}>KCAL</Text>
           </View>
           <View>
-            <Text style={{ color: "white", fontWeight: "bold", textAlign: "center", fontSize: 18 }}>{minutes}</Text>
-            <Text style={{ color: "#D0D0D0", textAlign: "center", fontSize: 18, marginTop: 6 }}>MINS</Text>
+            <Text style={{ color: "#D0D0D0", fontWeight: "bold", textAlign: "center", fontSize: 20 }}>{minutes}</Text>
+            <Text style={{ color: "#D0D0D0", textAlign: "center", fontSize: 20, marginTop: 6 }}>MINS</Text>
           </View>
         </View>
         <View style={{ justifyContent: "center", alignItems: "center" }}>
