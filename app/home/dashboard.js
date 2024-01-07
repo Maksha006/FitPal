@@ -8,10 +8,6 @@ import { fBdb, ref, onValue, update } from '../../FirebaseConfig';
 import PickerModal from '../PickerModal';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// import { FontFamily, Color, FontSize, Border } from "../GlobalStyles";
-// import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
-
-
 export default function Page() {
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -20,17 +16,13 @@ export default function Page() {
 
   const { name, username } = useGlobalSearchParams();
 
-  const currentDate = new Date();
+  // Utilise la fonction pour obtenir les informations sur la date
+  const { dayOfWeek, day, month, hour } = useCurrentDateInfo();
 
-  // Obtenez le jour de la semaine
-  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const dayOfWeek = dayNames[currentDate.getDay()];
-
-  // formule de salutation
+  // Formule de salutation
   const [greeting, setGreeting] = useState('');
 
   const updateGreeting = () => {
-    const hour = new Date().getHours();
     if (hour < 12) {
       return 'Good Morning';
     } else if (hour < 18) {
@@ -51,20 +43,10 @@ export default function Page() {
   }, []);
 
   // Formattez la date
-  const day = currentDate.getDate();
-  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-  const month = monthNames[currentDate.getMonth()];
+  const formattedDate = formatDateToCalendar(new Date());
 
-  const formatDateToCalendar = (date) => {
-    const day = `0${date.getDate()}`.slice(-2); // Ajoute un zéro au besoin et prend les deux derniers chiffres
-    const month = `0${date.getMonth() + 1}`.slice(-2); // Ajoute un zéro au besoin et prend les deux derniers chiffres
-    const year = date.getFullYear();
-
-    return `${year}-${month}-${day}`;
-  };
-
-  const [objectifs, setObjectifs] = React.useState([]);
-  const [objectiveStatus, setObjectiveStatus] = React.useState('red'); // Default is 'red' for not completed.
+  const [objectifs, setObjectifs] = useState([]);
+  const [objectiveStatus, setObjectiveStatus] = useState('red'); // Default is 'red' for not completed.
 
   const saveColorToStorage = async (date, color) => {
     try {
@@ -87,10 +69,9 @@ export default function Page() {
     // Update the status
     setObjectiveStatus(newStatus);
 
-    const objectifRef = ref(fBdb, `objectifs/${index}`);
+    const objectifRef = ref(fBdb, `objectifs/${formattedDate}/${index}`);
     update(objectifRef, { completed: newValue });
 
-    const formattedDate = formatDateToCalendar(new Date());
     saveColorToStorage(formattedDate, newStatus);
     setMarkedDates({
       ...markedDates,
@@ -99,17 +80,16 @@ export default function Page() {
   };
 
   const [markedDates, setMarkedDates] = useState({
-    [formatDateToCalendar(new Date())]: { selected: true, marked: true, selectedColor: 'blue' }
+    [formattedDate]: { selected: true, marked: true, selectedColor: 'blue' }
   });
 
   useEffect(() => {
-    // updateObjectivesWithCompletedField();
-    const objectifsRef = ref(fBdb, 'objectifs');
+    const objectifsRef = ref(fBdb, `objectifs/${formattedDate}`);
     const detachListener = onValue(objectifsRef, snapshot => {
       const fetchedObjectifs = snapshot.val();
       if (fetchedObjectifs) {
         const objectifsListe = fetchedObjectifs.map(item => ({ description: item.description, completed: item.completed }));
-        setObjectifs(objectifsListe.slice(0, 4));// Ne prendre que les 4 premiers objectifs
+        setObjectifs(objectifsListe);
 
         let completed = 0;
         fetchedObjectifs.forEach(objectif => {
@@ -119,7 +99,6 @@ export default function Page() {
         else if (completed > 0) setObjectiveStatus('orange');
         else setObjectiveStatus('red');
 
-        const formattedDate = formatDateToCalendar(new Date());
         setMarkedDates({
           ...markedDates,
           [formattedDate]: { selected: true, marked: true, selectedColor: objectiveStatus }
@@ -128,9 +107,9 @@ export default function Page() {
     });
 
     return () => {
-      detachListener(); // Cette fonction détachera l'écouteur
+      detachListener();
     };
-  }, [objectiveStatus]);
+  }, [formattedDate, objectiveStatus]);
 
   useEffect(() => {
     const loadColors = async () => {
@@ -138,7 +117,7 @@ export default function Page() {
       try {
         // Parcourir chaque jour du mois, par exemple
         for (let day = 1; day <= 31; day++) {
-          const date = `2023-12-${day.toString().padStart(2, '0')}`; // Remplacer par la date actuelle
+          const date = `2023-12-${day.toString().padStart(2, '0')}`;
           const color = await AsyncStorage.getItem(`calendarColor-${date}`);
           if (color) {
             newMarkedDates[date] = { selected: true, marked: true, selectedColor: color };
@@ -154,64 +133,87 @@ export default function Page() {
   }, []);
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <View style={styles.dateContainer}>
-            <Text style={styles.date}>{`${dayOfWeek}, ${day} ${month}`}</Text>
-            <Image source={require("../assets/weather.png")} style={styles.sunIcon} />
+      <ScrollView>
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <View style={styles.dateContainer}>
+              <Text style={styles.date}>{`${dayOfWeek}, ${day} ${month}`}</Text>
+              <Image source={require("../assets/weather.png")} style={styles.sunIcon} />
+            </View>
+            <Pressable onPress={() => router.push('/shaya')}>
+              <Image source={require("../assets/profilecircle.png")} style={styles.icon} />
+            </Pressable>
           </View>
-          <Pressable onPress={() => router.push('/shaya')}>
-            <Image source={require("../assets/profilecircle.png")} style={styles.icon} />
-          </Pressable>
+
+          <Text style={styles.greeting}>{greeting}</Text>
+
+          <View style={styles.targetContainer}>
+            <Text style={styles.todayTarget}>Today target</Text>
+            <View style={{ ...styles.statusIndicator, backgroundColor: objectiveStatus }}></View>
+            <Pressable onPress={() => setModalVisible(!modalVisible)}>
+              <View style={styles.dots}>
+                <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+                <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+                <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
+              </View>
+            </Pressable>
+            <PickerModal setModalOpen={setModalVisible} modalOpen={modalVisible} markedDates={markedDates}
+                         onDayPress={(day) => {
+
+                           const today = new Date().toISOString().split('T')[0];
+                           const newMarkedDates = { ...markedDates };
+
+                           if (day.dateString === today) {
+                             const newMarkedDates = { ...markedDates };
+                             newMarkedDates[day.dateString] = { selected: true, selectedColor: 'blue' };
+                             setMarkedDates(newMarkedDates);
+                           }
+                           setMarkedDates(newMarkedDates);
+                         }} />
+          </View>
+
+          <View style={styles.tasksContainer}>
+            {objectifs.map((objectif, index) => (
+                <View key={index} style={styles.task}>
+                  <Checkbox
+                      value={objectif.completed}
+                      onValueChange={(newValue) => handleCheckBoxChange(index, newValue)}
+                  />
+                  <Text style={styles.taskText}>{objectif.description}</Text>
+                </View>
+            ))}
+          </View>
+
+          <View style={styles.activityStatus}>
+            <WaterReminderCard />
+          </View>
+
         </View>
-
-        <Text style={styles.greeting}>{greeting}</Text>
-
-        <View style={styles.targetContainer}>
-          <Text style={styles.todayTarget}>Today target</Text>
-          <View style={{ ...styles.statusIndicator, backgroundColor: objectiveStatus }}></View>
-          <Pressable onPress={() => setModalVisible(!modalVisible)}>
-            <View style={styles.dots}>
-              <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
-              <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
-              <Image source={require("../assets/dot-one.png")} style={styles.dotIcon} />
-            </View>
-          </Pressable>
-          <PickerModal setModalOpen={setModalVisible} modalOpen={modalVisible} markedDates={markedDates}
-            onDayPress={(day) => {
-
-              const today = new Date().toISOString().split('T')[0];
-              const newMarkedDates = { ...markedDates };
-
-              if (day.dateString === today) {
-                const newMarkedDates = { ...markedDates };
-                newMarkedDates[day.dateString] = { selected: true, selectedColor: 'blue' };
-                setMarkedDates(newMarkedDates);
-              }
-              setMarkedDates(newMarkedDates);
-            }} />
-        </View>
-
-        <View style={styles.tasksContainer}>
-          {objectifs.map((objectif, index) => (
-            <View key={index} style={styles.task}>
-              <Checkbox
-                value={objectif.completed}
-                onValueChange={(newValue) => handleCheckBoxChange(index, newValue)}
-              />
-              <Text style={styles.taskText}>{objectif.description}</Text>
-            </View>
-          ))}
-        </View>
-
-        <View style={styles.activityStatus}>
-          <WaterReminderCard />
-        </View>
-
-      </View>
-    </ScrollView>
+      </ScrollView>
   );
+};
+
+// Fonction pour obtenir les informations sur la date
+const useCurrentDateInfo = () => {
+  const currentDate = new Date();
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+  const dayOfWeek = dayNames[currentDate.getDay()];
+  const day = currentDate.getDate();
+  const month = monthNames[currentDate.getMonth()];
+  const hour = currentDate.getHours();
+
+  return { dayOfWeek, day, month, hour };
+};
+
+// Fonction pour formater la date
+const formatDateToCalendar = (date) => {
+  const day = `0${date.getDate()}`.slice(-2);
+  const month = `0${date.getMonth() + 1}`.slice(-2);
+  const year = date.getFullYear();
+
+  return `${year}-${month}-${day}`;
 };
 
 const styles = StyleSheet.create({

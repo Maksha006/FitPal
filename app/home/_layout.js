@@ -7,7 +7,7 @@ export default()=>{
 
     return (
         <Tabs screenOptions={{tabBarShowLabel: false, tabBarActiveTintColor: 'brown'}}>
-            <Tabs.Screen name="dashboard" 
+            <Tabs.Screen name="dashboard"
             options={{
                 tabBarIcon: ({color}) => (
                     <FontAwesome name="dashboard" size={24} color={color}/>),
@@ -28,8 +28,7 @@ export default()=>{
                     <Ionicons name="fitness" size={24} color={color}/>),
                     headerShown: false
                 }} />
-
         </Tabs>
-         
+
     )
 }
