@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation } from "expo-router";
 import { useRoute } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet, Button, ScrollView } from 'react-native'; // Ajoutez Button depuis 'react-native'
+import * as Notifications from 'expo-notifications';
 
-const WaterScreen = ({route}) => {
-  route = useRoute();
+const WaterScreen = () => {
+  const route = useRoute();
   const navigation = useNavigation();
   const waterIntake = route.params ? route.params.waterIntake : null;
   const [cups, setCups] = useState(Array(8).fill(false)); // State to track cup status
@@ -13,6 +14,15 @@ const WaterScreen = ({route}) => {
     newCups[index] = !newCups[index];
     setCups(newCups);
   };
+
+  useEffect(() => {
+    const subscription = Notifications.addNotificationResponseReceivedListener(response => {
+      // Naviguer vers WaterScreen lorsque l'utilisateur appuie sur la notification
+      navigation.navigate('WaterScreen');
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   const fullCups = cups.filter((cup) => cup).length;
   const totalCups = cups.length;

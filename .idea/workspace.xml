@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87e9e074-3664-4eac-baaf-bc05176b4367" name="Changes" comment="changement couleur du workout page">
+    <list default="true" id="87e9e074-3664-4eac-baaf-bc05176b4367" name="Changes" comment="chargement exercices quotidien">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/home/_layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/_layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/home/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/home/water.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/home/water.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/waterIntakeCalculator.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/waterIntakeCalculator.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,32 +119,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;android.gradle.sync.needed&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/shaya/FitPal&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "android.gradle.sync.needed": "true",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/shaya/FitPal",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.2.5\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;GitStage.ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;,
-      &quot;module&quot;,
-      &quot;repository&quot;
+  "keyToStringList": {
+    "GitStage.ChangesTree.GroupingKeys": [
+      "directory",
+      "module",
+      "repository"
     ]
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -165,7 +166,9 @@
       <workItem from="1704115865287" duration="1454000" />
       <workItem from="1704118123758" duration="9034000" />
       <workItem from="1704213927918" duration="1271000" />
-      <workItem from="1704577847256" duration="9125000" />
+      <workItem from="1704577847256" duration="12224000" />
+      <workItem from="1704684566294" duration="593000" />
+      <workItem from="1704726961403" duration="1838000" />
     </task>
     <task id="LOCAL-00001" summary="update color calendar">
       <option name="closed" value="true" />
@@ -207,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703553742794</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="chargement exercices quotidien">
+      <option name="closed" value="true" />
+      <created>1704587501836</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1704587501836</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,6 +246,7 @@
     <MESSAGE value="persistent data workout statistic" />
     <MESSAGE value="reset daily data workout statistic" />
     <MESSAGE value="changement couleur du workout page" />
-    <option name="LAST_COMMIT_MESSAGE" value="changement couleur du workout page" />
+    <MESSAGE value="chargement exercices quotidien" />
+    <option name="LAST_COMMIT_MESSAGE" value="chargement exercices quotidien" />
   </component>
 </project>

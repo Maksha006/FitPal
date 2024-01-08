@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, Button, ScrollView, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { sex as dataSex, weight as dataWeight, age as dataAge } from './profileData';
-import { useNavigation } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 
 const BMIScreen = () => {
   const [selectedSex, setSelectedSex] = useState('');
